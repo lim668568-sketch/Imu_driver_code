@@ -1,0 +1,31 @@
+{
+    "protocol_name": "IMU_EULER",
+    "description": "欧拉角数据协议",
+    "header": [85, 170],
+    "tail": [13, 10],
+    "data_type": 1,
+    "fields": [
+        {
+            "name": "roll",
+            "type": "float",
+            "offset": 0,
+            "unit": "degree"
+        },
+        {
+            "name": "pitch",
+            "type": "float",
+            "offset": 4,
+            "unit": "degree"
+        },
+        {
+            "name": "yaw",
+            "type": "float",
+            "offset": 8,
+            "unit": "degree"
+        }
+    ],
+    "crc": {
+        "type": "sum",
+        "position": "before_tail"
+    }
+}
