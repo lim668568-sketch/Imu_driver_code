@@ -28,4 +28,11 @@ mpu6500\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
 mpu6500\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
 mpu6500\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 mpu6500\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
+mpu6500\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+mpu6500\main.o: ../Core/Inc/usart.h
 mpu6500\main.o: ../Core/Inc/gpio.h
+mpu6500\main.o: ../Driver_code/MPU6500.h
+mpu6500\main.o: D:\Keilv5\ARM\ARMCC\Bin\..\include\math.h
+mpu6500\main.o: ../Driver_code/I2C.h
+mpu6500\main.o: D:\Keilv5\ARM\ARMCC\Bin\..\include\stdio.h
+mpu6500\main.o: D:\Keilv5\ARM\ARMCC\Bin\..\include\string.h

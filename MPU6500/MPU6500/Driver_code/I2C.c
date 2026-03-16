@@ -1,6 +1,6 @@
-#include "i2c.h"
+#include "I2C.h"
 #include "gpio.h"
-
+#define INT_PIN   GPIO_PIN_5
 #define SCL_PIN   GPIO_PIN_6
 #define SDA_PIN   GPIO_PIN_7
 #define I2C_PORT  GPIOB
@@ -10,6 +10,13 @@
 #define GPIO_ResetBits(port, pin)   HAL_GPIO_WritePin(port, pin, GPIO_PIN_RESET)
 #define GPIO_ReadInputDataBit(port, pin)  (HAL_GPIO_ReadPin(port, pin) == GPIO_PIN_SET ? 1 : 0)
 
+// 重定向printf,串口1接上位机显示摄像头输出的数据
+int fputc(int ch, FILE *f)
+{
+    uint8_t temp[1] = {ch};
+    HAL_UART_Transmit(&huart1, temp, 1, 0xFFFF);
+    return ch;
+}
 /**
  * @brief I2C软件延时函数
  * @details 通过空循环实现微秒级延时，确保I2C时序符合规范

@@ -18,11 +18,13 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "MPU6500.h"
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -86,14 +88,37 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  // 初始化MPU6500传感器
+  MPU6500_Init();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    // 检查MPU6500数据是否准备好
+    if (mpu_data_ready)
+    {
+      mpu_data_ready = 0; // 清除标志
+  
+      // 读取MPU6500传感器数据
+      MPU6500_ReadData();
+  
+      // 进行姿态解算（采样周期0.01秒）
+      Mahony_Filter(0.01f);
+  
+      // 计算欧拉角
+      Euler_Calculate();
+  
+      // 输出欧拉角
+      printf("Roll: %.2f, Pitch: %.2f, Yaw: %.2f\n", 
+         euler_angle.roll, euler_angle.pitch, euler_angle.yaw);
+}
+
+      // 添加延时，控制输出频率
+      HAL_Delay(10);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

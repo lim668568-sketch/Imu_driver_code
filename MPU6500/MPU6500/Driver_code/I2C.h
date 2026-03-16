@@ -3,7 +3,14 @@
 
 #include "stdint.h"
 #include "gpio.h"
+#include "main.h"
+#include "stdio.h"
+#include "string.h"
+#include "usart.h"
+#include "stm32f4xx_hal_uart.h"
+#include <math.h>
 
+#define INT_PIN   GPIO_PIN_5
 #define SCL_PIN   GPIO_PIN_6
 #define SDA_PIN   GPIO_PIN_7
 #define I2C_PORT  GPIOB

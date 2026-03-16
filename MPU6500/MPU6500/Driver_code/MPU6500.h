@@ -3,6 +3,7 @@
 
 #include "stdint.h"
 #include "math.h"
+#include "I2C.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -30,7 +31,7 @@ typedef struct {
     float pitch;
     float yaw;
 } EulerAngle_t;
-
+extern uint8_t mpu_data_ready;
 extern volatile MPU6500_Data_t mpu6500_data;
 extern volatile EulerAngle_t euler_angle;
 

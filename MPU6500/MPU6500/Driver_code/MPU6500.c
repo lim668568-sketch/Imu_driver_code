@@ -1,6 +1,7 @@
 #include "mpu6500.h"
 #include "i2c.h"
-
+ // 置位标志，通知主循环去读数据
+uint8_t mpu_data_ready = 1;
 // 陀螺仪灵敏度：250dps量程，16位ADC，转换为度/秒
 #define GYRO_SCALE    (250.0f / 32768.0f)
 // 加速度计灵敏度：2g量程，16位ADC，转换为g
@@ -224,4 +225,16 @@ void Euler_Calculate(void)
     euler_angle.pitch = asin(2 * (q0 * q2 - q1 * q3)) * 57.2958f;
     // 偏航角：绕Z轴的旋转角度
     euler_angle.yaw = atan2(2 * (q0 * q3 + q1 * q2), 1 - 2 * (q2 * q2 + q3 * q3)) * 57.2958f;
+}
+
+/**
+  * @brief  外部中断回调函数
+  *         当 INT 检测到下降沿时自动调用
+  */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if (GPIO_Pin == INT_PIN) // 确认是 MPU6500 的 INT 引脚
+  {
+    mpu_data_ready = 1; // 置位标志，通知主循环去读数据
+  }
 }
